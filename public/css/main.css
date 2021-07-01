@@ -1,0 +1,20 @@
+body{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+
+  
+  /* Color */
+
+.bgColorPrim{
+    background-color: #8499B1;
+}
+.bgColorSec{
+    background-color: #593f62;
+}
+.bgColorTer{
+    background-color: #36151e;
+}
