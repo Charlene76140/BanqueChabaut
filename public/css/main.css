@@ -3,10 +3,13 @@ body{
     justify-content: space-between;
     flex-direction: column;
     min-height: 100vh;
-  }
+}
 
+.logo{
+    height:140px;
+    width: 140px;
+}
 
-  
   /* Color */
 
 .bgColorPrim{
