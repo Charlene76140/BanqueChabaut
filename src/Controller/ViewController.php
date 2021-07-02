@@ -19,5 +19,6 @@ class ViewController extends AbstractController
         return $this->render('view/index.html.twig', [
             'controller_name' => 'ViewController',
         ]);
+        // test bla bla bla 
     }
 }
