@@ -17,10 +17,7 @@ class ViewController extends AbstractController
     #[Route('/index', name: 'index')]
     public function index(): Response
     {
-        // $accountRepository = $this->getDoctrine()->getRepository(Account::class);
-        // $accounts = $accountRepository->findBy(
-        //     ["id"=> "user_id_id"],
-        // );
+
         $accounts= $this->getUser()->getAccounts();
         return $this->render('view/index.html.twig', [
             'accounts' => $accounts,
