@@ -6,19 +6,22 @@
 {% block body %}
 <main>
     <section class="container my-5">
-        <h2 class="my-4">Mes comptes</h2>
+        <h2 class="my-4">Voir mon compte</h2>
             <div class="row">
-            {% for account in accounts %}
                 <div class="card col-lg-3 m-auto my-5 text-center">
                     <h5 class="card-header">{{account.type}} <br/>
                         N°{{account.number}}</h5>
                     <div class="card-body">
                         <h6 class="card-title">Solde : {{account.amount}} €</h6>
                         <p class="card-text">Dernière opération :</p>
-                        <a href="{{ path('single', {id:account.id}) }}" class="btn bgColorPrim text-white">Accedez au compte</a>
+                        {% for operation in account.operations %}
+
+                        <p>{{operation.label}}</p>
+                        {% endfor %}
+                       
+                        <a href="#" class="btn bgColorPrim text-white">Voir toutes les opérations</a>
                     </div>
                 </div>
-            {% endfor %}
             <div>
     </section>
 </main>
