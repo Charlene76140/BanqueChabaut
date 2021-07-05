@@ -2,19 +2,21 @@
 
 namespace App\Controller;
 
+use App\Entity\Account;
+use App\Form\NewAccountType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Account;
 
-use app\Form\NewAccountType;
+
+
 // use App\Repository\AccountRepository;
 
 
 class ModifyController extends AbstractController
 {
-    #[Route('/user/account/add', name: 'addAccount')]
+    #[Route('/user/account/add', name: 'newAccount')]
     public function newAccount(Request $request): Response
     {
             $account =new Account();
