@@ -14,7 +14,8 @@ class NewAccountType extends AbstractType
     {
         $builder
             ->add('number', null, [
-                "label"=> "Numéro de comte :",
+
+                "label"=> "Numéro de compte :"
             ])
             ->add('type', null, [
                 "label" => "Type de compte"
@@ -23,7 +24,9 @@ class NewAccountType extends AbstractType
                 "label" => "Montant"
             ])
             ->add('enregistrer', SubmitType::class, [
-                "attr" => ['class' => 'btn bgColorSec text-dark my-3'],
+
+                "attr" => ['class' => 'btn bgColorSec text-white my-3'],
+
                 'row_attr' => ['class' => 'text-center']
             ])
         ;
