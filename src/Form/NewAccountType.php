@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\ChoiceList\ChoiceList;
 
 
 class NewAccountType extends AbstractType
@@ -21,11 +22,15 @@ class NewAccountType extends AbstractType
             ])
             ->add('type', ChoiceType::class, [
                 'choices'  => [
-                    'Compte Courant' => null,
-                    'PEL' => true,
-                    'Livret A ' => true,
+                    'Compte Courant' => 'Compte Courant',
+                    'PEL' => 'PEL',
+                    'Livret A' => 'Livret A',
                 ],
             ])
+
+
+
+
             ->add('amount', null, [
                 "label" => "Montant"
             ])
