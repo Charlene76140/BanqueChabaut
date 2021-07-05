@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau compte{% endblock %}
+
+{% block body %}
+<h2 class="mx-5 my-3">Supprimer compte</h2>
+{# a boucler dans un select en option #}
+{% for account in accounts %}
+<p>{{ account.number }}</p>
+{% endfor %}
+{% endblock %}
