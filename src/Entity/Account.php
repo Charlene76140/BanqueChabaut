@@ -43,10 +43,10 @@ class Account
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="accounts")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $userId;
+    private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity=Operation::class, mappedBy="accountId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Operation::class, mappedBy="account", orphanRemoval=true)
      */
     private $operations;
 
@@ -108,14 +108,14 @@ class Account
         return $this;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->userId;
+        return $this->user;
     }
 
-    public function setUserId(?User $userId): self
+    public function setUser(?User $user): self
     {
-        $this->userId = $userId;
+        $this->user = $user;
 
         return $this;
     }
@@ -132,7 +132,7 @@ class Account
     {
         if (!$this->operations->contains($operation)) {
             $this->operations[] = $operation;
-            $operation->setAccountId($this);
+            $operation->setAccount($this);
         }
 
         return $this;
@@ -142,8 +142,8 @@ class Account
     {
         if ($this->operations->removeElement($operation)) {
             // set the owning side to null (unless already changed)
-            if ($operation->getAccountId() === $this) {
-                $operation->setAccountId(null);
+            if ($operation->getAccount() === $this) {
+                $operation->setAccount(null);
             }
         }
 

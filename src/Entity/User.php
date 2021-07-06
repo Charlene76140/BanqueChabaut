@@ -58,7 +58,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $postal;
 
     /**
-     * @ORM\OneToMany(targetEntity=Account::class, mappedBy="userId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Account::class, mappedBy="user", orphanRemoval=true)
      */
     private $accounts;
 
@@ -216,7 +216,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->accounts->contains($account)) {
             $this->accounts[] = $account;
-            $account->setUserId($this);
+            $account->setUser($this);
         }
 
         return $this;
@@ -226,8 +226,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->accounts->removeElement($account)) {
             // set the owning side to null (unless already changed)
-            if ($account->getUserId() === $this) {
-                $account->setUserId(null);
+            if ($account->getUser() === $this) {
+                $account->setUser(null);
             }
         }
 

@@ -5,7 +5,7 @@ INSERT INTO user (email, roles, password, firstname, lastname, city, postal)
 ;
  
 
-INSERT INTO account (type, number, amount, date, user_id_id)
+INSERT INTO account (type, number, amount, date, user_id)
 VALUES
 ('Compte courant', 'FR7548451512 C50', 548.50 , '2018-10-05', 1),
 ('Livret A', 'FR451841 C51', 1985.46 ,  '2018-10-05', 1),
@@ -14,7 +14,7 @@ VALUES
 ('Livret A', 'FR258413 P49', 11475 , '2000-04-25', 2)
 ;
 
-INSERT INTO operation (type, label, date, amount, account_id_id)
+INSERT INTO operation (type, label, date, amount, account_id)
 VALUES
 ('Debit', 'Amazon commande', '2021-05-19', -42.62 , 1),
 ('Debit', 'Boulangerie Rouen Centre', '2021-05-19', -3.54 , 1),
