@@ -8,34 +8,36 @@
     <section class="container my-5">
         <h2 class="my-4">Mon compte n°{{ account.number }}</h2>
             <div class="row">
-                <div class="card col-lg-8 m-auto my-4 text-center">
-                    <h3 class="card-header">{{account.type}} <br/></h3>
-                    <div class="card-body">
-                        <h5 class="card-title mb-5 mt-3 border border-3 col-lg-3 m-auto">Solde : {{account.amount}} €</h5>
-                        <p class="card-header">Dernière(s) opération(s) :</p>
-                        <table class="col-lg-12 table">
-                            <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Libelé</th>
-                                    <th>Montant</th>
-                                    <th>Date</th>
-                                </tr>
-                            </thead> 
-                            <tbody>
-                                {% for operation in account.operations %}
-                                <tr>
-                                    <td>{{ operation.type }}</td>
-                                    <td>{{ operation.label }}</td>
-                                    <td>{{ operation.amount }} €</td>
-                                    <td>{{ operation.date|date('d/m/Y') }}</td>
-                                </tr>    
-                                {% endfor %} 
-                            </tbody>
-                        </table>
-                        <a href="#" class="btn bgColorPrim text-white my-4">Voir toutes les opérations</a>
+                <article class="col-lg-8 m-auto my-4 text-center">
+                    <div class="card text-center">
+                        <h3 class="card-header">{{account.type}} <br/></h3>
+                        <div class="card-body">
+                            <h5 class="card-title mb-5 mt-3 border border-3 col-lg-3 m-auto">Solde : {{account.amount}} €</h5>
+                            <p class="card-header">Dernière(s) opération(s) :</p>
+                            <table class="col-lg-12 table">
+                                <thead>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Libelé</th>
+                                        <th>Montant</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead> 
+                                <tbody>
+                                    {% for operation in account.operations %}
+                                    <tr>
+                                        <td>{{ operation.type }}</td>
+                                        <td>{{ operation.label }}</td>
+                                        <td>{{ operation.amount }} €</td>
+                                        <td>{{ operation.date|date('d/m/Y') }}</td>
+                                    </tr>    
+                                    {% endfor %} 
+                                </tbody>
+                            </table>
+                            <a href="#" class="btn bgColorPrim text-white my-4">Voir toutes les opérations</a>
+                        </div>
                     </div>
-                </div>
+                </article>
             <div>
     </section>
 </main>
