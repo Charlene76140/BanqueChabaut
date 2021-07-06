@@ -39,11 +39,11 @@ class ModifyController extends AbstractController
         ]);
     }
 
-    #[ROUTE ('/user/account/delete', name: 'deleteAccount')]
+    #[ROUTE ('/user/account/delete/', name: 'deleteAccount')]
     public function deleteAccount():Response
     {
-        $accounts=$this->getUser()->getAccounts();
-        
+        $accounts=$this->getUser()->getAccounts();  
+
         return $this->render('modify/deleteAccount.html.twig', [
             "accounts" => $accounts
         ]);

@@ -3,9 +3,18 @@
 {% block title %}Nouveau compte{% endblock %}
 
 {% block body %}
-<h2 class="mx-5 my-3">Supprimer compte</h2>
-{# a boucler dans un select en option #}
-{% for account in accounts %}
-<p>{{ account.number }}</p>
-{% endfor %}
+<main class="container ">
+    <div class="row w-50">
+        <h2 class="my-3">Supprimer un compte</h2>
+
+        <form method="POST">
+        <select id="accounts" class="form-select my-3">
+            {% for account in accounts %}
+                <option value='{{account.id}}'>{{account.type}} {{ account.number }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn bgColorTer text-white my-3 w-50 m-auto">Supprimer le compte</button>
+    </form>
+    </div>
+</main>
 {% endblock %}

@@ -8,7 +8,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\ChoiceList\ChoiceList;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+
 
 
 class NewAccountType extends AbstractType
@@ -17,7 +18,6 @@ class NewAccountType extends AbstractType
     {
         $builder
             ->add('number', null, [
-
                 "label"=> "Numéro de compte :"
             ])
             ->add('type', ChoiceType::class, [
@@ -27,20 +27,14 @@ class NewAccountType extends AbstractType
                     'Livret A' => 'Livret A',
                 ],
             ])
-
-
-
-
             ->add('amount', null, [
                 "label" => "Montant"
             ])
             ->add('enregistrer', SubmitType::class, [
-
                 "attr" => ['class' => 'btn bgColorSec text-white my-3'],
-
                 'row_attr' => ['class' => 'text-center']
-            ])
-        ;
+            ]);
+     
     }
 
     public function configureOptions(OptionsResolver $resolver)
