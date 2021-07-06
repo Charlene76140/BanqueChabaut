@@ -22,7 +22,6 @@ class ViewController extends AbstractController
     public function index(): Response
     {
         $accounts= $this->getUser()->getAccounts();
-        dump($accounts);
         return $this->render('view/index.html.twig', [
             'accounts' => $accounts,
         ]);
