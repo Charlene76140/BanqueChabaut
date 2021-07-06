@@ -25,7 +25,7 @@ class ModifyController extends AbstractController
             $form->handleRequest($request);
             if($form->isSubmitted() && $form->isValid()) {
                 $account->setDate( new \DateTime());
-                $account->setUserId($this->getUser());
+                $account->setUser($this->getUser());
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($account);
                 $entityManager->flush();
