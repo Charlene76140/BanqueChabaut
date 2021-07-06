@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouveau compte{% endblock %}
+{% block title %}Supprimer compte{% endblock %}
 
 {% block body %}
 <main>
@@ -13,7 +13,10 @@
                         <h5 class="card-header">{{account.type}} <br/>
                             N°{{account.number}}</h5>
                         <div class="card-body">
-                            <a href="{{ path('deleteAccount', {id:account.id}) }}" class="btn bgColorPrim text-white my-4">Supprimer</a>
+                            <form method="POST" action="{{ path('deleteAccount', {id:account.id}) }}">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ account.id) }}">
+                                <button class="btn bgColorPrim text-white my-4">Supprimer</button>
+                            </form>
                         </div>
                     </div>
                 </article>
