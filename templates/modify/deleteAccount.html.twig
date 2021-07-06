@@ -13,9 +13,9 @@
                         <h5 class="card-header">{{account.type}} <br/>
                             N°{{account.number}}</h5>
                         <div class="card-body">
-                            <form method="POST" action="{{ path('deleteAccount', {id:account.id}) }}">
+                            <form method="POST" action="{{ path('deleteAccount', {id:account.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr?')">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ account.id) }}">
-                                <button class="btn bgColorPrim text-white my-4">Supprimer</button>
+                                <button class="btn bgColorTer text-white my-4">Supprimer</button>
                             </form>
                         </div>
                     </div>
