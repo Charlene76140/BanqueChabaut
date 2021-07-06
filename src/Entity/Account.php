@@ -34,10 +34,6 @@ class Account
      */
     private $date;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $amount;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="accounts")
@@ -49,6 +45,11 @@ class Account
      * @ORM\OneToMany(targetEntity=Operation::class, mappedBy="account", orphanRemoval=true)
      */
     private $operations;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $amount;
 
     public function __construct()
     {
@@ -96,18 +97,6 @@ class Account
         return $this;
     }
 
-    public function getAmount(): ?int
-    {
-        return $this->amount;
-    }
-
-    public function setAmount(int $amount): self
-    {
-        $this->amount = $amount;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -146,6 +135,18 @@ class Account
                 $operation->setAccount(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAmount(): ?float
+    {
+        return $this->amount;
+    }
+
+    public function setAmount(float $amount): self
+    {
+        $this->amount = $amount;
 
         return $this;
     }

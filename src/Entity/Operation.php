@@ -32,16 +32,17 @@ class Operation
      */
     private $type;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $amount;
-
+ 
     /**
      * @ORM\ManyToOne(targetEntity=Account::class, inversedBy="operations")
      * @ORM\JoinColumn(nullable=false)
      */
     private $account;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $amount;
 
     public function getId(): ?int
     {
@@ -84,17 +85,6 @@ class Operation
         return $this;
     }
 
-    public function getAmount(): ?int
-    {
-        return $this->amount;
-    }
-
-    public function setAmount(int $amount): self
-    {
-        $this->amount = $amount;
-
-        return $this;
-    }
 
     public function getAccount(): ?Account
     {
@@ -104,6 +94,18 @@ class Operation
     public function setAccount(?Account $account): self
     {
         $this->account = $account;
+
+        return $this;
+    }
+
+    public function getAmount(): ?float
+    {
+        return $this->amount;
+    }
+
+    public function setAmount(float $amount): self
+    {
+        $this->amount = $amount;
 
         return $this;
     }
