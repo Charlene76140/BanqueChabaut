@@ -3,18 +3,22 @@
 {% block title %}Nouveau compte{% endblock %}
 
 {% block body %}
-<main class="container ">
-    <div class="row w-50">
-        <h2 class="my-3">Supprimer un compte</h2>
-
-        <form method="POST">
-        <select id="accounts" class="form-select my-3">
+<main>
+    <section class="container my-5">
+        <h2 class="my-4">Supprimer un compte :</h2>
+            <div class="row">
             {% for account in accounts %}
-                <option value='{{account.id}}'>{{account.type}} {{ account.number }}</option>
+                <article class="col-lg-3 m-auto my-5 text-center">
+                    <div class="card text-center">
+                        <h5 class="card-header">{{account.type}} <br/>
+                            N°{{account.number}}</h5>
+                        <div class="card-body">
+                            <a href="{{ path('deleteAccount', {id:account.id}) }}" class="btn bgColorPrim text-white my-4">Supprimer</a>
+                        </div>
+                    </div>
+                </article>
             {% endfor %}
-        </select>
-        <button type="submit" class="btn bgColorTer text-white my-3 w-50 m-auto">Supprimer le compte</button>
-    </form>
-    </div>
+            <div>
+    </section>
 </main>
 {% endblock %}

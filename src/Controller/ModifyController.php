@@ -8,10 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\AccountRepository;
 
-
-
-// use App\Repository\AccountRepository;
 
 
 class ModifyController extends AbstractController
@@ -39,15 +37,46 @@ class ModifyController extends AbstractController
         ]);
     }
 
-    #[ROUTE ('/user/account/delete/', name: 'deleteAccount')]
-    public function deleteAccount():Response
+    #[Route('/user/account/delete/{id}', name: 'deleteAccount', requirements: ['id' => '\d+'])]
+    public function deleteAccount(int $id=0, AccountRepository $accountRepository, Request $request): Response
     {
-        $accounts=$this->getUser()->getAccounts();  
+        $accounts = $this->getUser()->getAccounts();
+        $account= $accountRepository->find($id);
+
+        if($account){
+            $this->getUser()->removeAccount($account);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($account);
+            $entityManager->flush();
+        }
 
         return $this->render('modify/deleteAccount.html.twig', [
-            "accounts" => $accounts
+            "accounts"=>$accounts, 
         ]);
-
     }
+
+
+
+
+
+
+
+    // #[Route ('/user/account/delete/', name: 'deleteAccount')]
+    // public function deleteAccount():Response
+    // {
+    //     $accounts=$this->getUser()->getAccounts();
+         
+    //     $form=$this->createForm(NewAccountType::class, $accounts);
+
+    //     // if($form->isSubmitted() && $form->isValid()) {
+    //     //     $deleteAccount=$this->getUser()->removeAccount($account);
+    //     // }
+
+    //     return $this->render('modify/deleteAccount.html.twig', [
+    //         "form" => $form->createView(),
+    //         "accounts" => $accounts
+    //     ]);
+
+    // }
 
 }
