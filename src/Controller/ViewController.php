@@ -18,41 +18,36 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  */
 class ViewController extends AbstractController
 {   
-    #[Route('/', name: 'home')]
-    #[Route('/index', name: 'index')]
+    #[Route('/', name: 'home', methods:["GET"])]
+    #[Route('/index', name: 'index', methods:["GET"])]
     public function index(AccountRepository $accountRepository): Response
     {
         $accounts= $this->getUser()->getAccounts();
-        
-        
-        // $operation = $operationRepository->findBy(
-        //     [],
-        //     ["id"=> "DESC"],
-        //     1,
-        //     0
-        // );
-
-        // dump($operations);
 
         return $this->render('view/index.html.twig', [
             'accounts' => $accounts,
-            // 'operation' => $operation
         ]);
     }
 
 
-
-
-    #[Route('/user/account/{id}', name: 'single', requirements: ['id' => '\d+'])]
+    #[Route('/user/account/{id}', methods:["GET", "POST"], name: 'single', requirements: ['id' => '\d+'])]
     public function single(int $id=1, AccountRepository $accountRepository, Request $request): Response
     {
+    //   dump($accounts[0]->getUser());
         $account = $accountRepository->find($id);
+        // dump($account->getUser());
+
         $operations = $account->getOperations();
 
-        return $this->render('view/single.html.twig', [
-            "account"=>$account, 
-            "operations"=> $operations,
-        ]);
+        if($account->getUser() == $this->getUser()){
+            return $this->render('view/single.html.twig', [
+                "account"=>$account, 
+                "operations"=> $operations,
+            ]);
+        } 
+        else{
+            return $this->redirectToRoute('index');
+        }
     }
 
 }
