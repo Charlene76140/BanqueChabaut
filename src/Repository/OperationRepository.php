@@ -36,6 +36,25 @@ class OperationRepository extends ServiceEntityRepository
     }
     */
 
+    // public function getAccountsAndLastOperation(int $id){
+    //     return $this->createQueryBuilder('a')
+    //         ->innerJoin('a.user', 'u')
+    //         ->addSelect('a')
+    //         ->leftJoin('a.operation' , 'o')
+    //         ->addSelect('o')
+
+
+
+
+    //         ->Where('a.user = :val')
+    //         ->setParameter('val', $value)
+    //         ->orderBy('o.id', 'ASC')
+    //         ->setMaxResults(10)
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
+
     /*
     public function findOneBySomeField($value): ?Operation
     {

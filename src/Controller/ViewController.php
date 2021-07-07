@@ -10,6 +10,7 @@ use App\Entity\Account;
 use App\Entity\Operation;
 use App\Entity\User;
 use App\Repository\AccountRepository;
+use App\Repository\OperationRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
@@ -20,11 +21,11 @@ class ViewController extends AbstractController
 {   
     #[Route('/', name: 'home', methods:["GET"])]
     #[Route('/index', name: 'index', methods:["GET"])]
-    public function index(AccountRepository $accountRepository): Response
+    public function index(OperationRepository $operationRepository): Response
     {
         $accounts= $this->getUser()->getAccounts();
-
-        dump($accounts[0]->getOperations());
+        // $operation = $operationRepository->getLastOperation($accounts[0]->getId(), $this->getUser());
+        // dump($accounts[2]->getId());
 
         return $this->render('view/index.html.twig', [
             'accounts' => $accounts,
