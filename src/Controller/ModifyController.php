@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Account;
 use App\Form\NewAccountType;
+use App\Form\TransactionType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,6 +58,34 @@ class ModifyController extends AbstractController
 
         return $this->render('modify/deleteAccount.html.twig', [
             "accounts"=>$accounts, 
+        ]);
+    }
+
+
+
+
+    #[Route('/user/account/transaction', name: 'transaction')]
+    public function transaction(Request $request): Response
+    {
+        $accounts = $this->getUser()->getAccounts();
+
+            $form=$this->createForm(TransactionType::class);
+            $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid()) {
+
+                dump($form);
+
+            //     $entityManager = $this->getDoctrine()->getManager();
+                // $entityManager->persist();
+                // $entityManager->flush();
+
+                // return $this->redirectToRoute('index');
+            }
+
+
+        return $this->render('modify/transaction.html.twig', [
+            "form" => $form->createView(),
+            "accounts" => $accounts
         ]);
     }
 
