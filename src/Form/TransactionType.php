@@ -3,22 +3,57 @@
 namespace App\Form;
 
 use App\Entity\Account;
+use App\Entity\User;
+use App\Repository\AccountRepository;
+use App\Repository\UserRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Security\Core\Security;
 
 
 
 
 class TransactionType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    private $security;
+
+    public function __construct(Security $security)
     {
-        $builder
+        $this->security = $security;
+    }
+
+
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {  
+
         
+        // $id = $user->getId();
+        
+        $builder
+
+
+            ->add ('Compte', EntityType::class,[
+                'class'=>Account::class,
+                'query_builder'=> function (EntityRepository $account){
+                    $user = $this->security->getUser();
+                    return $account->createQueryBuilder('a')
+                        ->innerJoin('a.user','u')
+                        ->addSelect('u')
+                        ->where('u.id = :id')
+                        ->setParameter('id', $user->getId());
+                        
+                
+                },
+                'choice_label' => 'number' 
+                
+            ])
+
             ->add('type', ChoiceType::class, [
                 'choices'  => [
                     'Débit' => 'Débit',
