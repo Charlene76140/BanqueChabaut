@@ -24,6 +24,8 @@ class ViewController extends AbstractController
     {
         $accounts= $this->getUser()->getAccounts();
 
+        dump($accounts[0]->getOperations());
+
         return $this->render('view/index.html.twig', [
             'accounts' => $accounts,
         ]);
@@ -33,10 +35,7 @@ class ViewController extends AbstractController
     #[Route('/user/account/{id}', methods:["GET", "POST"], name: 'single', requirements: ['id' => '\d+'])]
     public function single(int $id=1, AccountRepository $accountRepository, Request $request): Response
     {
-    //   dump($accounts[0]->getUser());
         $account = $accountRepository->find($id);
-        // dump($account->getUser());
-
         $operations = $account->getOperations();
 
         if($account->getUser() == $this->getUser()){
