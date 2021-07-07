@@ -72,7 +72,6 @@ class ModifyController extends AbstractController
             $form=$this->createForm(TransactionType::class);
             $form->handleRequest($request);
             if($form->isSubmitted() && $form->isValid()) {
-
                 dump($form);
 
             //     $entityManager = $this->getDoctrine()->getManager();
