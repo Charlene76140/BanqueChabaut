@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Account;
-use App\Entity\User;
+use App\Entity\Operation;
 use App\Repository\AccountRepository;
 use App\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -38,7 +38,7 @@ class TransactionType extends AbstractType
         $builder
 
 
-            ->add ('Compte', EntityType::class,[
+            ->add ('account', EntityType::class,[
                 'class'=>Account::class,
                 'query_builder'=> function (EntityRepository $account){
                     $user = $this->security->getUser();
@@ -75,7 +75,7 @@ class TransactionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Account::class,
+            'data_class' => Operation::class,
         ]);
     }
 }
