@@ -56,8 +56,8 @@ class TransactionType extends AbstractType
 
             ->add('type', ChoiceType::class, [
                 'choices'  => [
-                    'Débit' => 'Débit',
-                    'Retrait' => 'Retrait',
+                    'Debit' => 'Debit',
+                    'Credit' => 'Credit',
                 ],
                 
             ])

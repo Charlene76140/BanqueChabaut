@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Account;
+use App\Entity\Operation;
 use App\Form\NewAccountType;
 use App\Form\TransactionType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -69,14 +70,21 @@ class ModifyController extends AbstractController
     {
         $accounts = $this->getUser()->getAccounts();
 
+            $operation = new Operation();
+
             $form=$this->createForm(TransactionType::class);
             $form->handleRequest($request);
             if($form->isSubmitted() && $form->isValid()) {
+                // dump($form->getData()->getType());
+                $operation->setDate( new \DateTime());
+                $operation->setLabel("Nouvelle opération");
+                $operation->setType($form->getData()->getType());
+                $operation->setAmount($form->getData()->getAmount());
+                $operation->setAccount($form->getData()->getAccount());
 
-                
-                // $entityManager = $this->getDoctrine()->getManager();
-                // $entityManager->persist();
-                // $entityManager->flush();
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($operation);
+                $entityManager->flush();
 
                 return $this->redirectToRoute('index');
             }
