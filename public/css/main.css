@@ -3,7 +3,12 @@ body{
     justify-content: space-between;
     flex-direction: column;
     min-height: 100vh;
+    background-image: url("../../img/LogoBanqueChabaut.png");
+    background-position-x: 100%;
+    background-position-y: -30%;
+    background-repeat: no-repeat;
 }
+
 
 .logo{
     height:140px;

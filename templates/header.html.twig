@@ -1,7 +1,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bgColorPrim">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"/>
+            <a class="navbar-brand" href="{{ path('index') }}"/>
             <!-- <img class="onlyMobile" src="logo96x96.png" alt="logo de la banque"> -->
             <img class ="logo" src="{{ asset('img/logo200x200.png') }}" alt="Logo"></a>
             {% if app.user %}
@@ -22,7 +22,7 @@
                                 </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{ path('newAccount') }}">Ouvrir un compte</a></li>
-                                <li><a class="dropdown-item" href="#">Dépot/retrait</a></li>
+                                <li><a class="dropdown-item" href="{{ path('transaction') }}">Dépot/retrait</a></li>
                                 <li><a class="dropdown-item" href="{{ path('deleteAccount') }}">Supprimer un compte</a></li>
                             </ul>
                             </li>
