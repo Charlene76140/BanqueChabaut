@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Account;
+use App\Entity\Transaction;
 use App\Entity\Operation;
 use App\Repository\AccountRepository;
 use App\Repository\UserRepository;
@@ -38,7 +39,7 @@ class TransactionType extends AbstractType
         $builder
 
 
-            ->add ('account', EntityType::class,[
+            ->add ('debitAccount', EntityType::class,[
                 'class'=>Account::class,
                 'query_builder'=> function (EntityRepository $account){
                     $user = $this->security->getUser();
@@ -50,17 +51,32 @@ class TransactionType extends AbstractType
                         
                 
                 },
-                'choice_label' => 'number' 
+                'choice_label' => 'number',
+                "label"=>"Compte1 Debit"
+                
+            ])
+            ->add ('creditAccount', EntityType::class,[
+                'class'=>Account::class,
+                'query_builder'=> function (EntityRepository $account){
+                    $user = $this->security->getUser();
+                    return $account->createQueryBuilder('a')
+                        ->innerJoin('a.user','u')
+                        ->addSelect('u')
+                        ->where('u.id = :id')
+                        ->setParameter('id', $user->getId());
+                },
+                'choice_label' => 'number',
+                "label" => "Compte2 Credit"
                 
             ])
 
-            ->add('type', ChoiceType::class, [
-                'choices'  => [
-                    'Debit' => 'Debit',
-                    'Credit' => 'Credit',
-                ],
+            // ->add('type', ChoiceType::class, [
+            //     'choices'  => [
+            //         'Debit' => 'Debit',
+            //         'Credit' => 'Credit',
+            //     ],
                 
-            ])
+            // ])
             ->add('amount', NumberType::class, [
                 "label" => "Montant",
                 
@@ -75,7 +91,7 @@ class TransactionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Operation::class,
+            'data_class' => Transaction::class,
         ]);
     }
 }

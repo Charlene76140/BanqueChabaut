@@ -7,6 +7,13 @@
 <main>
     <section class="container my-5">
         <h2 class="my-4">Mes comptes :</h2>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
             <div class="row">
             {% for account in accounts %}
                 <article class="col-lg-3 m-auto my-5 text-center">
