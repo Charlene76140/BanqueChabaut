@@ -15,7 +15,7 @@
                         <div class="card-body">
                             <form method="POST" action="{{ path('deleteAccount', {id:account.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr?')">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ account.id) }}">
-                                <button class="btn bgColorTer text-white my-4">Supprimer</button>
+                                <button class="btn bgColorTer text-white my-4">Faire la transaction</button>
                             </form>
                         </div>
                     </div>

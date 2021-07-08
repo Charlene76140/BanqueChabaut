@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Transaction{% endblock %}
+
+{% block body %}
+<main>
+    <section class="container my-5">
+        <h2 class="my-4">Faire une transaction</h2>
+            <div class="row w-50">
+                <form method="post">
+                {{form(form)}}
+                </form>
+            <div>
+    </section>
+</main>
+{% endblock %}
