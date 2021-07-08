@@ -11,6 +11,7 @@ use App\Entity\Operation;
 use App\Entity\User;
 use App\Repository\AccountRepository;
 use App\Repository\OperationRepository;
+use App\Form\RegistrationFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
@@ -34,7 +35,7 @@ class ViewController extends AbstractController
 
 
     #[Route('/user/account/{id}', methods:["GET", "POST"], name: 'single', requirements: ['id' => '\d+'])]
-    public function single(int $id=1, AccountRepository $accountRepository, Request $request): Response
+    public function single(int $id=1, AccountRepository $accountRepository): Response
     {
         $account = $accountRepository->find($id);
         $operations = $account->getOperations();
@@ -48,6 +49,27 @@ class ViewController extends AbstractController
         else{
             return $this->redirectToRoute('index');
         }
+    }
+
+    #[Route('/user/profil', methods:["GET", "POST"], name: 'userProfil')]
+    public function userProfile(Request $request): Response
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(RegistrationFormType::class, $user);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $user= $form->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render('view/userProfil.html.twig', [
+            "form" => $form->createView()
+        ]);
     }
 
 }
