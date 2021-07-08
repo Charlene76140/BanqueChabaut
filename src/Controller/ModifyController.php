@@ -75,18 +75,42 @@ class ModifyController extends AbstractController
             $form=$this->createForm(TransactionType::class);
             $form->handleRequest($request);
             if($form->isSubmitted() && $form->isValid()) {
+                $formPost=$form->getData();
                 // dump($form->getData()->getType());
                 $operation->setDate( new \DateTime());
                 $operation->setLabel("Nouvelle opération");
-                $operation->setType($form->getData()->getType());
-                $operation->setAmount($form->getData()->getAmount());
-                $operation->setAccount($form->getData()->getAccount());
+                $operation->setType($formPost->getType());
+                $operation->setAmount($formPost->getAmount());
+                $operation->setAccount($formPost->getAccount());
 
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($operation);
-                $entityManager->flush();
 
-                return $this->redirectToRoute('index');
+                $account=$formPost->getAccount();
+                $amount=$account->getAmount();
+
+                $type=$formPost->getType();
+                if($type=="Debit"){
+                    $newAmount= $amount - $formPost->getAmount();
+                    $account->setAmount($newAmount);
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($account);
+                    $entityManager->flush();
+                
+                }
+                if($type=="Credit"){
+                    $newAmount= $amount + $formPost->getAmount();
+                    $account->setAmount($newAmount);
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($account);
+                    $entityManager->flush();
+                
+                }
+                // $account->setAmount($newAmount);
+
+                // $entityManager = $this->getDoctrine()->getManager();
+                // $entityManager->persist($operation);
+                // $entityManager->flush();
+
+                // return $this->redirectToRoute('index');
             }
 
 
