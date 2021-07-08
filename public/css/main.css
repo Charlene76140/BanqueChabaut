@@ -3,8 +3,10 @@ body{
     justify-content: space-between;
     flex-direction: column;
     min-height: 100vh;
-    /* background-image: url("../../img/LogoFond.png");
-    background-position-x: 20%; */
+    background-image: url("../../img/LogoBanqueChabaut.png");
+    background-position-x: 100%;
+    background-position-y: -15%;
+    background-repeat: no-repeat;
     
 }
 
