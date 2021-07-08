@@ -32,12 +32,8 @@ class TransactionType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {  
-
-        
-        // $id = $user->getId();
         
         $builder
-
 
             ->add ('debitAccount', EntityType::class,[
                 'class'=>Account::class,
@@ -47,14 +43,12 @@ class TransactionType extends AbstractType
                         ->innerJoin('a.user','u')
                         ->addSelect('u')
                         ->where('u.id = :id')
-                        ->setParameter('id', $user->getId());
-                        
-                
+                        ->setParameter('id', $user->getId()); 
                 },
                 'choice_label' => 'number',
-                "label"=>"Compte1 Debit"
-                
+                "label"=>"Compte à débiter"
             ])
+
             ->add ('creditAccount', EntityType::class,[
                 'class'=>Account::class,
                 'query_builder'=> function (EntityRepository $account){
@@ -66,8 +60,7 @@ class TransactionType extends AbstractType
                         ->setParameter('id', $user->getId());
                 },
                 'choice_label' => 'number',
-                "label" => "Compte2 Credit"
-                
+                "label" => "Compte à créditer "    
             ])
 
             // ->add('type', ChoiceType::class, [
@@ -81,6 +74,7 @@ class TransactionType extends AbstractType
                 "label" => "Montant",
                 
             ])
+            
             ->add('enregistrer', SubmitType::class, [
                 "attr" => ['class' => 'btn bgColorSec text-white my-3'],
                 'row_attr' => ['class' => 'text-center']

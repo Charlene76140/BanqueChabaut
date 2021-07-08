@@ -14,7 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\AccountRepository;
 
 
-
 class ModifyController extends AbstractController
 {
     #[Route('/user/account/add', name: 'newAccount')]
@@ -33,7 +32,6 @@ class ModifyController extends AbstractController
 
                 return $this->redirectToRoute('index');
             }
-
 
         return $this->render('modify/newAccount.html.twig', [
             "form" => $form->createView()
@@ -57,18 +55,14 @@ class ModifyController extends AbstractController
                 return $this->redirectToRoute('index');
             }
         }
-
         return $this->render('modify/deleteAccount.html.twig', [
             "accounts"=>$accounts, 
         ]);
     }
 
-
-
 //===========================================================================
 //=============================== Virement ==================================
 //===========================================================================
-
 
 
     #[Route('/user/account/transaction', name: 'transaction')]
@@ -77,7 +71,6 @@ class ModifyController extends AbstractController
         $operationDebit= new Operation;
         $operationCredit= new Operation;
         
-
         $form=$this->createForm(TransactionType::class);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
@@ -88,13 +81,11 @@ class ModifyController extends AbstractController
             $debitAccountAmount=$debitAccount->getAmount();
             $creditAccountAmount=$creditAccount->getAmount();
 
-
             $operationDebit->setAmount(-$amount);
             $operationDebit->setDate( new \DateTime);
             $operationDebit->setType("Debit");
             $operationDebit->setLabel("Virement vers le compte ". $creditAccount->getType(). " " . $creditAccount->getNumber());
             $operationDebit->setAccount($debitAccount);
-
 
             $operationCredit->setAmount($amount);
             $operationCredit->setDate( new \DateTime);
@@ -102,12 +93,9 @@ class ModifyController extends AbstractController
             $operationCredit->setLabel("Virement depuis le compte ". $debitAccount->getType(). " " . $debitAccount->getNumber());
             $operationCredit->setAccount($creditAccount);
 
-
             $debitAccount->setAmount($debitAccountAmount - $amount);
             $creditAccount->setAmount($creditAccountAmount + $amount);
             
-
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($debitAccount);
             $entityManager->persist($creditAccount);
@@ -120,25 +108,11 @@ class ModifyController extends AbstractController
                 'Vos modifications ont bien été prises en compte.'
             );
             return $this->redirectToRoute('index');
-
         }
-
         return $this->render('modify/transaction.html.twig', [
-                    "form" => $form->createView(),
-                    
+            "form" => $form->createView(),
         ]);       
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
     //===============================================================================
