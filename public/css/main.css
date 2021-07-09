@@ -20,6 +20,7 @@ main{
 .logo{
     height:140px;
     width: 140px;
+    
 }
 
 .sizeIcone{
@@ -43,13 +44,23 @@ main{
 
 /* animation */
 
-@keyframes example {
-    from {width : 0}
-    to { width: 100%;}
+    @keyframes form1{
+        from {width:0}
+        to{width: 100%}
+    }
+
+    .form1{
+        animation-name: form1;
+        animation-duration: 0.5s;
+    }
+
+
+  @keyframes slideLeft{
+        from {margin-left: -50%;}
+        to{margin: 0;}
   }
-  
-  /* The element to apply the animation to */
-  .form1 {
-    animation-name: example;
-    animation-duration: 0.5s;
+
+  .slideLeft{
+      animation-name: slideLeft;
+      animation-duration: 0.5s;
   }

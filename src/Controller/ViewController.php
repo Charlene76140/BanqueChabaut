@@ -27,8 +27,6 @@ class ViewController extends AbstractController
     public function index(OperationRepository $operationRepository): Response
     {
         $accounts= $this->getUser()->getAccounts();
-        // $operation = $operationRepository->getLastOperation($accounts[0]->getId(), $this->getUser());
-        // dump($accounts[2]->getId());
 
         return $this->render('view/index.html.twig', [
             'accounts' => $accounts,
