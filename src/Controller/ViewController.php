@@ -24,7 +24,7 @@ class ViewController extends AbstractController
 {   
     #[Route('/', name: 'home', methods:["GET"])]
     #[Route('/index', name: 'index', methods:["GET"])]
-    public function index(OperationRepository $operationRepository, UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository): Response
     {
         $accounts= $this->getUser()->getAccounts();
         $users = $userRepository->findAll();
