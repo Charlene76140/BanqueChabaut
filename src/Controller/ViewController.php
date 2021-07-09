@@ -16,7 +16,6 @@ use App\Form\RegistrationFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
-
 /**
  * @IsGranted("IS_AUTHENTICATED_FULLY")
  */
@@ -34,7 +33,6 @@ class ViewController extends AbstractController
             'accounts' => $accounts,
         ]);
     }
-
 
     #[Route('/user/account/{id}', methods:["GET", "POST"], name: 'single', requirements: ['id' => '\d+'])]
     public function single(int $id=1, AccountRepository $accountRepository): Response
@@ -83,5 +81,4 @@ class ViewController extends AbstractController
             "form" => $form->createView()
         ]);
     }
-
 }
