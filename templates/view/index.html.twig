@@ -5,6 +5,37 @@
 {% block body %}
 <main>
     <section class="container my-5">
+        {% if is_granted('ROLE_ADMIN') %}
+            <h2 class="my-4">Les utilisateurs :</h2>
+            <div class="row">
+                <div class="col-lg-7">
+                    <table class=" my-5 table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Email</th>
+                                <th>Ville</th>
+                                <th>Code Postal</th>
+                                <th>Comptes</th>
+                            </tr>
+                        </thead> 
+                        <tbody>
+                            {% for user in users %}
+                            <tr>
+                                <td>{{ user.lastname }}</td>
+                                <td>{{ user.firstname }}</td>
+                                <td>{{ user.email }} </td>
+                                <td>{{ user.city }}</td>
+                                <td>{{ user.postal }}</td>
+                                <td><a href="{{ path('adminAccount', {id:user.id}) }}" class ="btn bgColorPrim text-white"/>Voir Comptes</td>
+                            </tr>   
+                            {% endfor %}
+                        </tbody>
+                    </table> 
+                </div>
+            </div>
+        {% else %}
         <h2 class="my-4">Mes comptes :</h2>
         {% for label, messages in app.flashes %}
             {% for message in messages %}
@@ -28,6 +59,7 @@
                 </article>
             {% endfor %}
             <div>
+        {% endif %}         
     </section>
 </main>
 {% endblock %}

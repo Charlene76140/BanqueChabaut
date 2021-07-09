@@ -12,6 +12,7 @@ use App\Entity\Operation;
 use App\Entity\User;
 use App\Repository\AccountRepository;
 use App\Repository\OperationRepository;
+use App\Repository\UserRepository;
 use App\Form\RegistrationFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
@@ -23,14 +24,14 @@ class ViewController extends AbstractController
 {   
     #[Route('/', name: 'home', methods:["GET"])]
     #[Route('/index', name: 'index', methods:["GET"])]
-    public function index(OperationRepository $operationRepository): Response
+    public function index(OperationRepository $operationRepository, UserRepository $userRepository): Response
     {
         $accounts= $this->getUser()->getAccounts();
-        // $operation = $operationRepository->getLastOperation($accounts[0]->getId(), $this->getUser());
-        // dump($accounts[2]->getId());
-
+        $users = $userRepository->findAll();
+        
         return $this->render('view/index.html.twig', [
             'accounts' => $accounts,
+            'users' => $users,
         ]);
     }
 
