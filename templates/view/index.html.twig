@@ -2,36 +2,67 @@
 
 {% block title %}Accueil{% endblock %}
 
-
 {% block body %}
 <main>
     <section class="container my-5 slideLeft">
-        <h2 class="my-4">Mes comptes :</h2>
-        {% for label, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="alert alert-{{ label }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endfor %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <h2 class="my-4">Les utilisateurs :</h2>
             <div class="row">
-            {% for account in accounts %}
-                <article class="col-lg-3 m-auto my-5 text-center">
-                    <div class="card text-center">
-                        <h5 class="card-header">{{account.type}} <br/>
-                            N°{{account.number}}</h5>
-                        <div class="card-body">
-                            <h6 class="card-title border border-1 col-lg-6 m-auto">Solde : {{account.amount}} €</h6>
-                            {% set lastOperation = account.operations|last %}
-                            <hr/>
-                            <h6>Dernière Opération: </h6>
-                            <p>{{ lastOperation.label }} / {{ lastOperation.amount }}€</p>
-                            <a href="{{ path('single', {id:account.id}) }}" class="btn bgColorPrim text-white my-4">Accedez au compte</a>
-                        </div>
+                <div class="col-lg-7">
+                    <table class=" my-5 table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Email</th>
+                                <th>Ville</th>
+                                <th>Code Postal</th>
+                                <th>Comptes</th>
+                            </tr>
+                        </thead> 
+                        <tbody>
+                            {% for user in users %}
+                            <tr>
+                                <td>{{ user.lastname }}</td>
+                                <td>{{ user.firstname }}</td>
+                                <td>{{ user.email }} </td>
+                                <td>{{ user.city }}</td>
+                                <td>{{ user.postal }}</td>
+                                <td><a href="{{ path('adminAccount', {id:user.id}) }}" class ="btn bgColorPrim text-white"/>Voir Comptes</td>
+                            </tr>   
+                            {% endfor %}
+                        </tbody>
+                    </table> 
+                </div>
+            </div>
+        {% else %}
+            <h2 class="my-4">Mes comptes :</h2>
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">
+                        {{ message }}
                     </div>
-                </article>
+                {% endfor %}
             {% endfor %}
-            <div>
+                <div class="row">
+                    {% for account in accounts %}
+                        <article class="col-lg-3 m-auto my-5 text-center">
+                            <div class="card text-center">
+                                <h5 class="card-header">{{account.type}} <br/>
+                                    N°{{account.number}}</h5>
+                                <div class="card-body">
+                                    <h6 class="card-title border border-1 col-lg-6 m-auto">Solde : {{account.amount}} €</h6>
+                                    {% set lastOperation = account.operations|last %}
+                                    <hr/>
+                                    <h6>Dernière Opération: </h6>
+                                    <p>{{ lastOperation.label }} / {{ lastOperation.amount }}€</p>
+                                    <a href="{{ path('single', {id:account.id}) }}" class="btn bgColorPrim text-white my-4">Accedez au compte</a>
+                                </div>
+                            </div>
+                        </article>
+                    {% endfor %}
+                <div>
+        {% endif %}         
     </section>
 </main>
 {% endblock %}
