@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 use App\Entity\Account;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
      class Transaction{
 
@@ -17,6 +17,7 @@ use App\Entity\Account;
         public function getCreditAccount(){
             return $this->creditAccount;
         }
+        #[Assert\NotBlank]
         public function getAmount(){
             return $this->amount;
         }

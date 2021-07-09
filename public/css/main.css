@@ -1,3 +1,5 @@
+
+
 body{
     display: flex;
     justify-content: space-between;
@@ -7,12 +9,18 @@ body{
     background-position-x: 100%;
     background-position-y: -30%;
     background-repeat: no-repeat;
+    background-position: absolute;
 }
 
+
+main{
+    min-height: 45vh;
+}
 
 .logo{
     height:140px;
     width: 140px;
+    
 }
 
 .sizeIcone{
@@ -33,3 +41,26 @@ body{
 .bgColorTer{
     background-color: #36151e;
 }
+
+/* animation */
+
+    @keyframes form1{
+        from {width:0}
+        to{width: 100%}
+    }
+
+    .form1{
+        animation-name: form1;
+        animation-duration: 0.5s;
+    }
+
+
+  @keyframes slideLeft{
+        from {margin-left: -50%;}
+        to{margin: 0;}
+  }
+
+  .slideLeft{
+      animation-name: slideLeft;
+      animation-duration: 0.5s;
+  }

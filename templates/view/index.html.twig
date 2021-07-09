@@ -5,7 +5,7 @@
 
 {% block body %}
 <main>
-    <section class="container my-5">
+    <section class="container my-5 slideLeft">
         <h2 class="my-4">Mes comptes :</h2>
         {% for label, messages in app.flashes %}
             {% for message in messages %}
@@ -22,7 +22,10 @@
                             N°{{account.number}}</h5>
                         <div class="card-body">
                             <h6 class="card-title border border-1 col-lg-6 m-auto">Solde : {{account.amount}} €</h6>
-                            <!-- <p class="card-text my-3">Dernière opération :</p> -->
+                            {% set lastOperation = account.operations|last %}
+                            <hr/>
+                            <h6>Dernière Opération: </h6>
+                            <p>{{ lastOperation.label }} / {{ lastOperation.amount }}€</p>
                             <a href="{{ path('single', {id:account.id}) }}" class="btn bgColorPrim text-white my-4">Accedez au compte</a>
                         </div>
                     </div>
