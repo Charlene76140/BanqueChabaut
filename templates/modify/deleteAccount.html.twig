@@ -11,8 +11,9 @@
                 <article class="col-lg-3 m-auto my-5 text-center">
                     <div class="card text-center">
                         <h5 class="card-header">{{account.type}} <br/>
-                            N°{{account.number}}</h5>
+                            {{account.number}}</h5>
                         <div class="card-body">
+                            <h6 class="card-title border border-1 col-lg-6 m-auto">Solde : {{account.amount}} €</h6>
                             <form method="POST" action="{{ path('deleteAccount', {id:account.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr?')">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ account.id) }}">
                                 <button class="btn bgColorTer text-white my-4">Supprimer le compte</button>

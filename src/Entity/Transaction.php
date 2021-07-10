@@ -7,8 +7,11 @@ use Symfony\Component\Validator\Constraints as Assert;
      class Transaction{
 
         protected $debitAccount;
+
         protected $creditAccount;
+
         protected $amount;
+
         protected $dateTime;
 
         public function getDebitAccount(){
@@ -17,15 +20,12 @@ use Symfony\Component\Validator\Constraints as Assert;
         public function getCreditAccount(){
             return $this->creditAccount;
         }
-        #[Assert\NotBlank]
         public function getAmount(){
             return $this->amount;
         }
         public function getDatime(){
             return $this->dateTime;
         }
-
-
         public function setDebitAccount(Account $debitAccount){
             $this->debitAccount=$debitAccount;
             return $this;

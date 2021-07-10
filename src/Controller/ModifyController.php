@@ -36,7 +36,7 @@ class ModifyController extends AbstractController
                    array_push($accountNum, $chaine);
                 }
                 $number=implode(" ",$accountNum);
-
+                //Set new Account
                 if($selectType==="Compte Courant"){
                     $account->setNumber("FR76 " . $number . " CC");
                 }
@@ -46,19 +46,15 @@ class ModifyController extends AbstractController
                 elseif($selectType=== "Livret A" ){
                     $account->setNumber("FR76 " . $number . " LA");
                 }
-                
-
-                //Set new Account
                 $account->setDate( new \DateTime());
                 $account->setUser($this->getUser());
-
                 //Set new Operation
                 $operation->setDate( new \DateTime());
                 $operation->setLabel("Ouverture du compte");
                 $operation->setType("Crédit");
                 $operation->setAccount($account);
                 $operation->setAmount($form->getData()->getAmount());
-
+                //Writting in DB
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($account);
                 $entityManager->persist($operation);
