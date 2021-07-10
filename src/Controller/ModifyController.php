@@ -16,6 +16,12 @@ use App\Repository\AccountRepository;
 
 class ModifyController extends AbstractController
 {
+
+    //==============================================================================
+    //=============================== Account Management ===========================
+    //==============================================================================
+
+
     #[Route('/user/account/add', name: 'newAccount')]
     public function newAccount(Request $request): Response
     {
@@ -60,6 +66,11 @@ class ModifyController extends AbstractController
                 $entityManager->persist($operation);
                 $entityManager->flush();
 
+                //Flash mesage in index
+                $this->addFlash(
+                    'success',
+                    'Vos modifications ont bien été prises en compte.'
+                );
                 return $this->redirectToRoute('index');
             }
 
@@ -67,6 +78,7 @@ class ModifyController extends AbstractController
             "form" => $form->createView()
         ]);
     }
+
 
     #[Route('/user/account/delete/{id}', name: 'deleteAccount', requirements: ['id' => '\d+'])]
     public function deleteAccount(int $id=0, AccountRepository $accountRepository, Request $request): Response
@@ -82,6 +94,11 @@ class ModifyController extends AbstractController
                 $entityManager->persist($account);
                 $entityManager->flush();
 
+                //Flash mesage in index
+                $this->addFlash(
+                'success',
+                'Vos modifications ont bien été prises en compte.'
+                );
                 return $this->redirectToRoute('index');
             }
         }
@@ -91,7 +108,7 @@ class ModifyController extends AbstractController
     }
 
 //===========================================================================
-//=============================== Virement ==================================
+//=============================== Transfert =================================
 //===========================================================================
 
 
@@ -105,27 +122,32 @@ class ModifyController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
 
+            //Update accounts to debit and credit
             $debitAccount=$form->getData()->getDebitAccount();
             $creditAccount=$form->getData()->getCreditAccount();
             $amount=$form->getData()->getAmount();
             $debitAccountAmount=$debitAccount->getAmount();
             $creditAccountAmount=$creditAccount->getAmount();
-
+            
+            //Create new operation for debit
             $operationDebit->setAmount(-$amount);
             $operationDebit->setDate( new \DateTime);
             $operationDebit->setType("Debit");
             $operationDebit->setLabel("Virement vers le compte ". $creditAccount->getType(). " " . $creditAccount->getNumber());
             $operationDebit->setAccount($debitAccount);
 
+            //Create opreation for credit
             $operationCredit->setAmount($amount);
             $operationCredit->setDate( new \DateTime);
             $operationCredit->setType("Credit");
             $operationCredit->setLabel("Virement depuis le compte ". $debitAccount->getType(). " " . $debitAccount->getNumber());
             $operationCredit->setAccount($creditAccount);
 
+            //Calcutation
             $debitAccount->setAmount($debitAccountAmount - $amount);
             $creditAccount->setAmount($creditAccountAmount + $amount);
             
+            // Writting DB
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($debitAccount);
             $entityManager->persist($creditAccount);
@@ -133,6 +155,7 @@ class ModifyController extends AbstractController
             $entityManager->persist($operationCredit);
             $entityManager->flush();
 
+            //Flash message in index
             $this->addFlash(
                 'success',
                 'Vos modifications ont bien été prises en compte.'

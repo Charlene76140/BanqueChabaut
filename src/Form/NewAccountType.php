@@ -17,9 +17,7 @@ class NewAccountType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            // ->add('number', null, [
-            //     "label"=> "Numéro de compte :"
-            // ])
+
             ->add('type', ChoiceType::class, [
                 'choices'  => [
                     'Compte Courant' => 'Compte Courant',
