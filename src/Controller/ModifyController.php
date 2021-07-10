@@ -20,14 +20,48 @@ class ModifyController extends AbstractController
     public function newAccount(Request $request): Response
     {
             $account =new Account();
-        	
+            $operation= new Operation();
+  
             $form=$this->createForm(NewAccountType::class, $account);
             $form->handleRequest($request);
+            
             if($form->isSubmitted() && $form->isValid()) {
+                
+                //Type in Dropdown
+                $selectType=$form->getData()->getType();
+                //Generate random account Number
+                $accountNum=[];
+                for($i=0;$i<3;$i++){
+                    $chaine=rand(0000,9999);
+                   array_push($accountNum, $chaine);
+                }
+                $number=implode(" ",$accountNum);
+
+                if($selectType==="Compte Courant"){
+                    $account->setNumber("FR76 " . $number . " CC");
+                }
+                elseif($selectType=== "PEL"){
+                    $account->setNumber("FR76 " . $number . " PEL");
+                }
+                elseif($selectType=== "Livret A" ){
+                    $account->setNumber("FR76 " . $number . " LA");
+                }
+                
+
+                //Set new Account
                 $account->setDate( new \DateTime());
                 $account->setUser($this->getUser());
+
+                //Set new Operation
+                $operation->setDate( new \DateTime());
+                $operation->setLabel("Ouverture du compte");
+                $operation->setType("Crédit");
+                $operation->setAccount($account);
+                $operation->setAmount($form->getData()->getAmount());
+
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($account);
+                $entityManager->persist($operation);
                 $entityManager->flush();
 
                 return $this->redirectToRoute('index');
