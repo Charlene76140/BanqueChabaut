@@ -18,8 +18,6 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Security\Core\Security;
 
 
-
-
 class TransactionType extends AbstractType
 {
     private $security;
@@ -28,11 +26,8 @@ class TransactionType extends AbstractType
     {
         $this->security = $security;
     }
-
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {  
-        
         $builder
 
             ->add ('debitAccount', EntityType::class,[
