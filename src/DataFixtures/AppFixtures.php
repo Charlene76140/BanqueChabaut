@@ -33,7 +33,7 @@ class AppFixtures extends Fixture
 
             for($j=1; $j < 3; $j++){
                 $account = new Account();
-                $account->setNumber("FR76 1234 " . $j);
+                $account->setNumber("FR76 1234 FX" . $j);
                 $account->setDate(new \DateTime());
                 $account->setAmount(mt_rand(100, 500));
                 $account->setUser($user);

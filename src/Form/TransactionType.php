@@ -17,9 +17,6 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Security\Core\Security;
 
-
-
-
 class TransactionType extends AbstractType
 {
     private $security;
@@ -28,7 +25,6 @@ class TransactionType extends AbstractType
     {
         $this->security = $security;
     }
-
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {  
