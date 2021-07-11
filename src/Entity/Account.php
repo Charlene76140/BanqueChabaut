@@ -53,6 +53,9 @@ class Account
      * @ORM\Column(type="float")
      */
     #[Assert\NotBlank]
+    #[Assert\GreaterThanOrEqual(
+        value:50,
+    )]
     private $amount;
 
     public function __construct()

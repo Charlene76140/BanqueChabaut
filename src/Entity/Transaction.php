@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
         protected $creditAccount;
 
+        #[Assert\Positive]
         protected $amount;
 
         protected $dateTime;

@@ -5,7 +5,6 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
 use App\Entity\User;
 use App\Entity\Account;
 use App\Entity\Operation;
@@ -18,7 +17,6 @@ class AppFixtures extends Fixture
     {
         $this->encoder = $encoder;
     }
-
 
     public function load(ObjectManager $manager)
     {
@@ -69,7 +67,6 @@ class AppFixtures extends Fixture
                     $manager->persist($operation);
                 }
             }
-            
             $manager->persist($user);
         }
         $manager->flush();

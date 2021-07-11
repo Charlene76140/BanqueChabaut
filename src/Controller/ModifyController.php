@@ -94,7 +94,7 @@ class ModifyController extends AbstractController
                 $entityManager->persist($account);
                 $entityManager->flush();
 
-                //Flash mesage in index
+                //Flash message in index
                 $this->addFlash(
                 'success',
                 'Vos modifications ont bien été prises en compte.'

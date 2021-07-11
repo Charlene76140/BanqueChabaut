@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Comptes{% endblock %}
+
+{% block body %}
+    <main>
+        <section class="container my-5">
+            <h2 class="my-4">Comptes :</h2>
+            <div class="row">
+                <div class="col-lg-6">      
+                    {% for account in accounts %}
+                    <ul class="list-group my-4">
+                        <li class="list-group-item">Numéro de compte : {{ account.number }}</li>
+                        <li class="list-group-item">Type de compte : {{ account.type }}</li>
+                        <li class="list-group-item">Date d'ouverture : {{ account.date|date('d/m/Y') }}</li>
+                        <li class="list-group-item">Solde du compte : {{ account.amount }} €</li>
+                    </ul>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
