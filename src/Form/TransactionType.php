@@ -4,9 +4,6 @@ namespace App\Form;
 
 use App\Entity\Account;
 use App\Entity\Transaction;
-use App\Entity\Operation;
-use App\Repository\AccountRepository;
-use App\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,10 +22,8 @@ class TransactionType extends AbstractType
     {
         $this->security = $security;
     }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {  
-        
         $builder
 
             ->add ('debitAccount', EntityType::class,[

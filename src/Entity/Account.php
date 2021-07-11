@@ -23,7 +23,7 @@ class Account
     /**
      * @ORM\Column(type="string", length=255)
      */
-    #[Assert\NotBlank]
+    
     private $number;
 
     /**
@@ -53,6 +53,9 @@ class Account
      * @ORM\Column(type="float")
      */
     #[Assert\NotBlank]
+    #[Assert\GreaterThanOrEqual(
+        value:50,
+    )]
     private $amount;
 
     public function __construct()
