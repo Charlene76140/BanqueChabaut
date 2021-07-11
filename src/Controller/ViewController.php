@@ -26,7 +26,10 @@ class ViewController extends AbstractController
     #[Route('/index', name: 'index', methods:["GET"])]
     public function index(UserRepository $userRepository): Response
     {
+        //retrieves the accounts of the logged in user
         $accounts= $this->getUser()->getAccounts();
+
+        //used to retrieve all database users, for admin interface
         $users = $userRepository->findAll();
         
         return $this->render('view/index.html.twig', [
@@ -38,9 +41,12 @@ class ViewController extends AbstractController
     #[Route('/user/account/{id}', methods:["GET", "POST"], name: 'single', requirements: ['id' => '\d+'])]
     public function single(int $id=1, AccountRepository $accountRepository): Response
     {
+        //retrieves an account by its id retrieved from the URL
         $account = $accountRepository->find($id);
+        //retrieves all transactions from the account retrieved before
         $operations = $account->getOperations();
 
+        //protects the url and checks that the account displayed is that of the logged in user
         if($account->getUser() == $this->getUser()){
             return $this->render('view/single.html.twig', [
                 "account"=>$account, 
